@@ -19,12 +19,12 @@ namespace TodoApi.Controllers
     [HttpGet]
     public async Task<ActionResult<IList<TodoList>>> GetTodoLists()
     {
-      if (_context.TodoList == null)
-      {
-        return NotFound();
-      }
+        if (_context.TodoList == null)
+        {
+            return NotFound();
+        }
 
-      return Ok(await _context.TodoList.ToListAsync());
+        return Ok(await _context.TodoList.Include(todoList => todoList.Items).ToListAsync());
     }
 
     // GET: api/todolists/5
